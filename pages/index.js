@@ -1,10 +1,33 @@
+import { useEffect } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import axios from 'axios'
+import { useNavigation } from '../lib/NavContext'
 
-export default function Home({res}) {
+export default function Home({data}) {
   
-  console.log(res)
+  const {navigation, setNavigation} = useNavigation();
+
+  const categories = data.data.map(category => {
+    const pages = category.attributes.pages.data.map(page => {
+      return {
+        id: page.id,
+        title: page.attributes.title,
+        slug: page.attributes.slug,
+      }
+    })
+    
+    return {
+      id: category.id,
+      name: category.attributes.category_name,
+      slug: category.attributes.category_slug,
+      pages: pages
+    }
+  })
+
+  useEffect(() => {
+    setNavigation(categories)
+  }, [])
   
   return (
     <div>
@@ -14,11 +37,9 @@ export default function Home({res}) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <h1 className="">
-          asd
-        </h1>
-      </main>
+      <div className='flex max-w-20' >
+        asd
+      </div>
     </div>
   )
 }
@@ -34,9 +55,10 @@ export async function getStaticProps() {
       params: { populate: '*' }
     });
 
-    test = res.json()
+    console.log(res.data)
+    const data = await res.data
 
-    return { props: { res } }
+    return { props: { data } }
 
   } catch (error) {
     console.error(error);
