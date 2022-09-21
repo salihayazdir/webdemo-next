@@ -18,13 +18,15 @@ export default function Sidebar({sidebarIsOpen, setSidebarIsOpen}) {
                 <ChevronUpIcon className={`${ open ? 'rotate-180 transform' : '' } h-5 w-5`} />
             </Disclosure.Button>
             <Disclosure.Panel
-            className="px-4 pt-4 pb-2 text-sm text-gray-500">
-                <ul>
+            className="px-4 pb-4 text-sm text-gray-500">
+                <ul className='flex flex-col gap-2 text-lg'>
                     {
                         category.pages.map(page => (
                             <li key={page.id} >
                                 <Link href={`/${page.slug}`} >
-                                    <a>{page.title}</a>
+                                    <a onClick={() => setSidebarIsOpen(false)}>
+                                        {page.title}
+                                    </a>
                                 </Link>
                             </li>
                         ))
@@ -56,11 +58,11 @@ export default function Sidebar({sidebarIsOpen, setSidebarIsOpen}) {
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
-                enterFrom="opacity-0 translate-x-10"
+                enterFrom="opacity-0 scale-95"
                 enterTo="opacity-100 scale-100"
                 leave="ease-in duration-200"
                 leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 translate-x-10"
+                leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="w-full max-w-md p-6 overflow-hidden text-left align-middle transition-all transform bg-white rounded-lg shadow-xl">
                     <Dialog.Title

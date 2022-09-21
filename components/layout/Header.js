@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState } from 'react'
 import { useNavigation } from '../../lib/NavContext'
-import Sidebar from './Sidebar';
+import Sidebar from './Sidebar'
+import Link from 'next/link';
 
 export default function Header() {
   
@@ -18,10 +19,14 @@ export default function Header() {
       sidebarIsOpen={sidebarIsOpen}
       setSidebarIsOpen={setSidebarIsOpen} />
 
-      <div>LOGO</div>
+      <div>
+      <Link href='/' >
+        <a>LOGO</a>
+      </Link>
+      </div>
       <button
       onClick={() => setSidebarIsOpen(true)}>
-        NAV
+        MENU
       </button>
     </div>
   )

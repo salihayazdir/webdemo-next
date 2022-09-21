@@ -1,33 +1,12 @@
 import { useEffect } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
-import axios from 'axios'
 import { useNavigation } from '../lib/NavContext'
+import FetchFromCms from '../lib/FetchFromCms'
+import PopulateNavMenu from '../lib/PopulateNavMenu'
 
-export default function Home({data}) {
-  
-  const {navigation, setNavigation} = useNavigation();
-
-  const categories = data.data.map(category => {
-    const pages = category.attributes.pages.data.map(page => {
-      return {
-        id: page.id,
-        title: page.attributes.title,
-        slug: page.attributes.slug,
-      }
-    })
-    
-    return {
-      id: category.id,
-      name: category.attributes.category_name,
-      slug: category.attributes.category_slug,
-      pages: pages
-    }
-  })
-
-  useEffect(() => {
-    setNavigation(categories)
-  }, [])
+export default function Home({categoryData}) {
+  PopulateNavMenu(categoryData)
   
   return (
     <div>
@@ -46,23 +25,15 @@ export default function Home({data}) {
 
 export async function getStaticProps() {
   
-  try {
-    console.log('asd')
-    const token = process.env.NEXT_PUBLIC_STRAPI_TOKEN;
-    axios.defaults.headers.common = {'Authorization': `bearer ${token}`}
-
-    const res = await axios.get(`${process.env.NEXT_PUBLIC_STRAPI_URL}/categories`, {
-      params: { populate: '*' }
-    });
-
-    console.log(res.data)
-    const data = await res.data
-
-    return { props: { data } }
-
-  } catch (error) {
-    console.error(error);
-    return { props: "Error" }
-  }
-
+  const categoryData = await FetchFromCms({
+    url: "categories",
+    params: {
+      "fields[0]": "category_name", 
+      "fields[1]": "category_slug",
+      "populate[pages][fields][0]": "title",
+      "populate[pages][fields][1]": "slug"
+    }
+  })
+  return { props: { categoryData } }
+  
 }
