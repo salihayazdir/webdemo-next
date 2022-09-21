@@ -1,6 +1,7 @@
 import '../styles/globals.css'
 import { NavProvider } from '../lib/NavContext'
 import Layout from '../components/layout/Layout'
+import { appWithTranslation } from 'next-i18next'
 
 function MyApp({ Component, pageProps }) {
   
@@ -13,4 +14,4 @@ function MyApp({ Component, pageProps }) {
   )
 }
 
-export default MyApp
+export default appWithTranslation(MyApp)
