@@ -72,29 +72,28 @@ export default function Sidebar({sidebarIsOpen, setSidebarIsOpen}) {
                   <Dialog.Title
                   as="div"
                   className="flex justify-between">
-                  <h3 className='text-xl font-medium leading-6 text-gray-900'>
+                    <h3 className='text-xl font-medium leading-6 text-gray-900'>
                       Menü
-                  </h3>
-                  <button onClick={() => setSidebarIsOpen(false)}>
-                    <XMarkIcon className="w-6 h-6" aria-hidden="true"/>
-                  </button>
+                    </h3>
+                    <button onClick={() => setSidebarIsOpen(false)}>
+                      <XMarkIcon className="w-6 h-6" aria-hidden="true"/>
+                    </button>
                   </Dialog.Title>
-                  <div className="mt-6">
-                    {menu}
-                  </div>
-                  <div style={{margin: '20px'}}>
-                    
-                    <div>{t('current_locale')}: {t(router.locale)}</div>
-                    <div>
+                  <div className='flex flex-col justify-between h-full' >
+                    <div className="mt-6">
+                      {menu}
+                    </div>
+                    <div className='p-4 mb-6 text-center bg-gray-100 rounded-md' >
+                    {/* <div>{t('current_locale')}: {t(router.locale)}</div> */}
                       <Link
                         href={`/${currentLocaleAlias}`}
                         locale={router.locale === 'tr' ? 'en' : 'tr'}>
                         <button>
-                          {t('change_locale')}
+                          {/* {t('change_locale')} */}
+                          {router.locale === 'tr' ? 'English' : 'Türkçe'}
                         </button>
                       </Link>
                     </div>
-
                   </div>
                 </Dialog.Panel>
               </Transition.Child>

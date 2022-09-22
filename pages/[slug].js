@@ -5,24 +5,28 @@ import { useRouter } from "next/router"
 import getLocaleAlias from "../lib/getLocaleAlias"
 import { useNavigation } from "../lib/NavContext"
 import { useEffect } from "react"
+import ReactMarkdown from "react-markdown";
 
 export default function Page({ pageData, categoryData, localeAlias }) {
-    
+
     PopulateNavMenu(categoryData)
-    
     const { t } = useTranslation('common')
-    
     const router = useRouter()
 
     const { setCurrentLocaleAlias } = useNavigation()
     useEffect(() => {
         setCurrentLocaleAlias(localeAlias)
-    },[])
+    },[router.asPath])
 
     return (
         <>
-            <h1>{pageData.title}</h1>
-            <h1>{pageData.content}</h1>
+            {/* <h1 className="text-xl font-semibold" >
+                {pageData.title}
+            </h1>
+            <hr className="my-4" /> */}
+            <ReactMarkdown className="prose prose-stone prose-h1:text-[#00a3c0]" >
+                {pageData.content}
+            </ReactMarkdown>
         </>
     )
 }
