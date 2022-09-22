@@ -3,11 +3,15 @@ import { useNavigation } from '../../lib/NavContext'
 import { Dialog, Transition, Disclosure } from '@headlessui/react'
 import { XMarkIcon, ChevronUpIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
+import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next'
 
 export default function Sidebar({sidebarIsOpen, setSidebarIsOpen}) {
   
-  const {navigation} = useNavigation();
-  
+  const {navigation, currentLocaleAlias} = useNavigation();
+  const router = useRouter();
+  const { t } = useTranslation('common')
+
   const menu = navigation.map(category => (
     <Disclosure key={category.id}>
         {({ open }) => (
@@ -65,18 +69,32 @@ export default function Sidebar({sidebarIsOpen, setSidebarIsOpen}) {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="w-full max-w-md p-6 overflow-hidden text-left align-middle transition-all transform bg-white rounded-lg shadow-xl">
-                    <Dialog.Title
-                    as="div"
-                    className="flex justify-between">
-                    <h3 className='text-xl font-medium leading-6 text-gray-900'>
-                        Menü
-                    </h3>
-                    <button onClick={() => setSidebarIsOpen(false)}>
-                        <XMarkIcon className="w-6 h-6" aria-hidden="true"/>
-                    </button>
-                    </Dialog.Title>
-                    <div className="mt-6">
+                  <Dialog.Title
+                  as="div"
+                  className="flex justify-between">
+                  <h3 className='text-xl font-medium leading-6 text-gray-900'>
+                      Menü
+                  </h3>
+                  <button onClick={() => setSidebarIsOpen(false)}>
+                    <XMarkIcon className="w-6 h-6" aria-hidden="true"/>
+                  </button>
+                  </Dialog.Title>
+                  <div className="mt-6">
                     {menu}
+                  </div>
+                  <div style={{margin: '20px'}}>
+                    
+                    <div>{t('current_locale')}: {t(router.locale)}</div>
+                    <div>
+                      <Link
+                        href={`/${currentLocaleAlias}`}
+                        locale={router.locale === 'tr' ? 'en' : 'tr'}>
+                        <button>
+                          {t('change_locale')}
+                        </button>
+                      </Link>
+                    </div>
+
                   </div>
                 </Dialog.Panel>
               </Transition.Child>

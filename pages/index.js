@@ -6,10 +6,16 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Link from 'next/link'
+import { useEffect } from 'react'
+import { useNavigation } from '../lib/NavContext'
 
 
 export default function Home({categoryData}) {
   PopulateNavMenu(categoryData)
+  const { setCurrentLocaleAlias } = useNavigation()
+  useEffect(() => {
+    setCurrentLocaleAlias("/")
+  },[])
   
   const router = useRouter()
   const { t } = useTranslation('common')
@@ -23,22 +29,9 @@ export default function Home({categoryData}) {
       </Head>
 
       <div className='flex max-w-20' >
-        asd
+        <h1>{t("deneme")}</h1>
       </div>
 
-      <div style={{margin: '20px'}}>
-          <div>{t('current_locale')}: {t(router.locale)}</div>
-          <div>
-            <Link
-              href='/'
-              locale={router.locale === 'en' ? 'tr' : 'en'}>
-              <button>
-                {t('change_locale')}
-              </button>
-            </Link>
-          </div>
-        </div>
-        
     </div>
   )
 }
@@ -48,7 +41,7 @@ export async function getStaticProps({ locale }) {
   const categoryData = await FetchFromCms({
     url: "categories",
     params: {
-      // "locale" : {(locale === "tr" ? "tr-TR" : "en")},
+      "locale" : `${(locale === "tr" ? "tr-TR" : "en")}`,
       "fields[0]": "category_name", 
       "fields[1]": "category_slug",
       "populate[pages][fields][0]": "title",
