@@ -7,19 +7,19 @@ module.exports = {
   theme: {
     extend: {
       screens: {
-      '-sm': { max:'640px' },
+      '-sm': { max:'639px' },
       // => @media (min-width: 640px) { ... }
 
-      '-md': { max:'768px' },
+      '-md': { max:'767px' },
       // => @media (min-width: 768px) { ... }
 
-      '-lg': { max:'1024px' },
+      '-lg': { max:'1023px' },
       // => @media (min-width: 1024px) { ... }
 
-      '-xl': { max:'1280px' },
+      '-xl': { max:'1279px' },
       // => @media (min-width: 1280px) { ... }
 
-      '-2xl': { max:'1536px' },
+      '-2xl': { max:'1535px' },
       // => @media (min-width: 1536px) { ... }
       }
     },

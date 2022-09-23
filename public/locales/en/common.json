@@ -1,7 +1,8 @@
 {
-    "en": "English",
-    "tr": "Turkish",
-    "change_locale": "Change Language",
-    "current_locale": "Current locale",
-    "deneme": "trk"
-  }
+  "heading": "Heading",
+  "en": "English",
+  "tr": "Turkish",
+  "change_locale": "Change Language",
+  "current_locale": "Current locale",
+  "123": "trk"
+}
