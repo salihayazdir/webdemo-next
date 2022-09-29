@@ -9,6 +9,7 @@ import getCategoryData from '../lib/getCategoryData'
 
 export default function Home({categoryData}) {
   PopulateNavMenu(categoryData)
+  
   const { setCurrentLocaleAlias } = useNavigation()
   useEffect(() => {
     setCurrentLocaleAlias("/")
