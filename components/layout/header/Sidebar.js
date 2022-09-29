@@ -13,31 +13,31 @@ export default function Sidebar({sidebarIsOpen, setSidebarIsOpen}) {
 
   const menu = navigation.map(category => (
     <Disclosure key={category.id}>
-        {({ open }) => (
-        <>
-            <Disclosure.Button
-            className="flex justify-between w-full px-4 py-2 text-xl font-medium text-left focus:outline-none focus-visible:ring focus-visible:ring-opacity-75">
-                <span>{category.name}</span>
-                <ChevronUpIcon className={`${ open ? 'rotate-180 transform' : '' } h-5 w-5`} />
-            </Disclosure.Button>
-            <Disclosure.Panel
-            className="px-4 pb-4 text-sm text-gray-500">
-                <ul className='flex flex-col gap-2 text-lg'>
-                  {
-                    category.pages.map(page => (
-                        <li key={page.id} >
-                          <Link href={page.slug} >
-                              <a onClick={() => setSidebarIsOpen(false)}>
-                                {page.title}
-                              </a>
-                          </Link>
-                        </li>
-                    ))
-                  }
-                </ul>
-            </Disclosure.Panel>
-        </>
-        )}
+      {({ open }) => (
+      <>
+      <Disclosure.Button
+      className="flex justify-between w-full px-4 py-2 text-xl font-medium text-left focus:outline-none focus-visible:ring focus-visible:ring-opacity-75">
+          <span>{category.name}</span>
+          <ChevronUpIcon className={`${ open ? 'rotate-180 transform' : '' } h-5 w-5`} />
+      </Disclosure.Button>
+      <Disclosure.Panel
+      className="px-4 pb-4 text-sm text-gray-500">
+          <ul className='flex flex-col gap-2 text-lg'>
+            {
+              category.pages.map(page => (
+                <li key={page.id} >
+                  <Link href={page.slug} >
+                      <a onClick={() => setSidebarIsOpen(false)}>
+                        {page.title}
+                      </a>
+                  </Link>
+                </li>
+              ))
+            }
+          </ul>
+      </Disclosure.Panel>
+      </>
+      )}
     </Disclosure>
   ))
 

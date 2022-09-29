@@ -3,6 +3,7 @@ import { useNavigation } from '../../../lib/NavContext'
 import Sidebar from './Sidebar'
 import Link from 'next/link';
 import MenuBar from './MenuBar';
+import { Bars3Icon } from '@heroicons/react/20/solid';
 
 export default function Header() {
   
@@ -14,7 +15,7 @@ export default function Header() {
   ))
 
   return (
-    <div className={`flex items-center justify-between px-6 py-4 text-lg bg-gray-200`} >
+    <div className={`flex items-center justify-between px-6 py-4 border-b border-gray-200`} >
       
       <Sidebar
         sidebarIsOpen={sidebarIsOpen}
@@ -32,8 +33,9 @@ export default function Header() {
         onClick={() => setSidebarIsOpen(true)}
         className="md:hidden"
       >
-        MENU
+        <Bars3Icon className="w-6 h-6"/>
       </button>
     </div>
   )
 }
+

@@ -24,7 +24,7 @@ export default function Home({categoryData}) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className='flex max-w-20' >
-        <h1>{t('heading')}</h1>
+        <h1>{t('homepage')}</h1>
       </div>
     </div>
   )
