@@ -1,10 +1,10 @@
 import Head from 'next/head'
-import FetchFromCms from '../lib/FetchFromCms'
 import PopulateNavMenu from '../lib/PopulateNavMenu'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useEffect } from 'react'
 import { useNavigation } from '../lib/NavContext'
+import getCategoryData from '../lib/getCategoryData'
 
 
 export default function Home({categoryData}) {
@@ -31,19 +31,13 @@ export default function Home({categoryData}) {
 }
 
 export async function getStaticProps({ locale }) {
-  
-  const categoryData = await FetchFromCms({
-    url: "categories",
-    params: {
-      "locale" : `${(locale === "tr" ? "tr-TR" : "en")}`,
-      "fields[0]": "category_name", 
-      "fields[1]": "category_slug",
-      "populate[pages][fields][0]": "title",
-      "populate[pages][fields][1]": "slug"
+
+  const categoryData = await getCategoryData(locale)
+
+  return { 
+    props: { 
+    categoryData,
+    ...(await serverSideTranslations(locale, ['common'])) 
     }
-  })
-
-  // const translations = await serverSideTranslations(locale, ['common'])
-
-  return { props: { categoryData, ...(await serverSideTranslations(locale, ['common'])) } }
+  }
 }
